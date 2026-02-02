@@ -1,43 +1,22 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Subject = require('../models/Subject');
 const Standard = require('../models/Standard');
-const authenticate = require('../middleware/checkLogin');
-const authorize = require('../middleware/auth');
+const bcrypt = require('bcrypt');
 
-const router = express.Router();
-
-// Login
-router.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-        if (!user || !(await user.comparePassword(password))) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// Admin registers teacher
-router.post('/register-teacher', authenticate, authorize(['admin']), async (req, res) => {
+// Register teacher (admin)
+const registerTeacher = async (req, res) => {
     try {
         const { name, email, password, subjects } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const teacher = new User({ name, email, password: hashedPassword, role: 'teacher', subjects });
+        const teacher = new User({ name, email, password, role: 'teacher', subjects });
         await teacher.save();
         res.status(201).json({ message: 'Teacher registered successfully', teacher });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Admin or Teacher registers student
-router.post('/register-student', authenticate, authorize(['admin', 'teacher']), async (req, res) => {
+// Register student (admin)
+const registerStudent = async (req, res) => {
     try {
         const { name, email, password, standard } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -47,30 +26,20 @@ router.post('/register-student', authenticate, authorize(['admin', 'teacher']), 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Get all students (admin and teacher)
-router.get('/students', authenticate, authorize(['admin', 'teacher']), async (req, res) => {
+// Get all students (admin)
+const getStudents = async (req, res) => {
     try {
         const students = await User.find({ role: 'student' }).populate('standard');
         res.json(students);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Get own profile (all roles)
-router.get('/profile', authenticate, async (req, res) => {
-    try {
-        const user = await User.findById(req.user.id).populate('subjects').populate('standard');
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// Update student (teacher and admin)
-router.put('/students/:id', authenticate, authorize(['admin', 'teacher']), async (req, res) => {
+// Update student (admin)
+const updateStudent = async (req, res) => {
     try {
         const { name, email, standard } = req.body;
         const student = await User.findByIdAndUpdate(req.params.id, { name, email, standard }, { new: true });
@@ -78,30 +47,30 @@ router.put('/students/:id', authenticate, authorize(['admin', 'teacher']), async
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Delete student (teacher and admin)
-router.delete('/students/:id', authenticate, authorize(['admin', 'teacher']), async (req, res) => {
+// Delete student (admin)
+const deleteStudent = async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);
         res.json({ message: 'Student deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Get all teachers (admin only)
-router.get('/teachers', authenticate, authorize(['admin']), async (req, res) => {
+// Get all teachers (admin)
+const getTeachers = async (req, res) => {
     try {
         const teachers = await User.find({ role: 'teacher' }).populate('subjects');
         res.json(teachers);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Update teacher (admin only)
-router.put('/teachers/:id', authenticate, authorize(['admin']), async (req, res) => {
+// Update teacher (admin)
+const updateTeacher = async (req, res) => {
     try {
         const { name, email, subjects } = req.body;
         const teacher = await User.findByIdAndUpdate(req.params.id, { name, email, subjects }, { new: true });
@@ -109,20 +78,20 @@ router.put('/teachers/:id', authenticate, authorize(['admin']), async (req, res)
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Delete teacher (admin only)
-router.delete('/teachers/:id', authenticate, authorize(['admin']), async (req, res) => {
+// Delete teacher (admin)
+const deleteTeacher = async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);
         res.json({ message: 'Teacher deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Admin adds subject
-router.post('/subjects', authenticate, authorize(['admin']), async (req, res) => {
+// Add subject (admin)
+const addSubject = async (req, res) => {
     try {
         const { name, standard } = req.body;
         const subject = new Subject({ name, standard });
@@ -131,20 +100,20 @@ router.post('/subjects', authenticate, authorize(['admin']), async (req, res) =>
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
 // Get all subjects (admin)
-router.get('/subjects', authenticate, authorize(['admin']), async (req, res) => {
+const getSubjects = async (req, res) => {
     try {
         const subjects = await Subject.find().populate('standard');
         res.json(subjects);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Admin adds standard
-router.post('/standards', authenticate, authorize(['admin']), async (req, res) => {
+// Add standard (admin)
+const addStandard = async (req, res) => {
     try {
         const { name } = req.body;
         const standard = new Standard({ name });
@@ -153,16 +122,29 @@ router.post('/standards', authenticate, authorize(['admin']), async (req, res) =
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
 // Get all standards (admin)
-router.get('/standards', authenticate, authorize(['admin']), async (req, res) => {
+const getStandards = async (req, res) => {
     try {
         const standards = await Standard.find();
         res.json(standards);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-module.exports = router;
+module.exports = {
+    registerTeacher,
+    registerStudent,
+    getStudents,
+    updateStudent,
+    deleteStudent,
+    getTeachers,
+    updateTeacher,
+    deleteTeacher,
+    addSubject,
+    getSubjects,
+    addStandard,
+    getStandards
+};
