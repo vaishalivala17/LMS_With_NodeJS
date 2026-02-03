@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const Subject = require('../models/Subject');
 const Standard = require('../models/Standard');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 // Register teacher (admin)
 const registerTeacher = async (req, res) => {
@@ -15,18 +15,7 @@ const registerTeacher = async (req, res) => {
     }
 };
 
-// Register student (admin)
-const registerStudent = async (req, res) => {
-    try {
-        const { name, email, password, standard } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const student = new User({ name, email, password: hashedPassword, role: 'student', standard });
-        await student.save();
-        res.status(201).json({ message: 'Student registered successfully', student });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
+
 
 // Get all students (admin)
 const getStudents = async (req, res) => {
@@ -136,7 +125,6 @@ const getStandards = async (req, res) => {
 
 module.exports = {
     registerTeacher,
-    registerStudent,
     getStudents,
     updateStudent,
     deleteStudent,

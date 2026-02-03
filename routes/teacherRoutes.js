@@ -1,6 +1,8 @@
 const express = require('express');
-const { authenticate, authorize } = require('../middleware/auth');
+const { authenticate} = require('../middleware/auth');
+const { authorize } = require('../middleware/checkAuthority');
 const { registerStudent, getStudents, updateStudent, deleteStudent } = require('../controllers/teacherController');
+const { getProfile } = require('../controllers/studentController');
 
 const router = express.Router();
 
@@ -15,5 +17,8 @@ router.put('/students/:id', authenticate, authorize(['teacher']), updateStudent)
 
 // Delete student (teacher)
 router.delete('/students/:id', authenticate, authorize(['teacher']), deleteStudent);
+
+// Get own profile (teacher)
+router.get('/profile', authenticate, authorize(['teacher']), getProfile);
 
 module.exports = router;

@@ -20,20 +20,30 @@ const userSchema = new mongoose.Schema({
         enum: ['admin', 'teacher', 'student'],
         default: 'admin'
     },
-    subjects: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Subject'
-    }],
+    // subjects: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Subject'
+    // }],
+    teaching: [
+  {
+    subject: { type: mongoose.Schema.Types.ObjectId, ref: "Subject" },
+    standard: { type: mongoose.Schema.Types.ObjectId, ref: "Standard" }
+  }
+],
     standard: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Standard'
+        ref: 'Standard',
+        required: function () {
+    return this.role === "student";
+  }
     }
 }, { timestamps: true });
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 10);
+    if (this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
     next();
 });
 

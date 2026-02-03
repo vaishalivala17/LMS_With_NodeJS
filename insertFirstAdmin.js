@@ -22,6 +22,7 @@ const insertFirstAdmin = async () => {
     } catch (error) {
         console.error('Error inserting first admin:', error);
     } finally {
+        console.log("Admin created successfull.");
         mongoose.connection.close();
     }
 };
