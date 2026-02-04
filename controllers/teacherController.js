@@ -17,7 +17,9 @@ const registerStudent = async (req, res) => {
 // Get all students (teacher)
 const getStudents = async (req, res) => {
     try {
-        const students = await User.find({ role: 'student' }).populate('standard');
+        const teacher = await User.findById(req.user.id).populate('teaching.standard');
+        const teachingStandards = teacher.teaching.flatMap(t => t.standard.map(s => s._id));
+        const students = await User.find({ role: 'student', isDeleted: false, standard: { $in: teachingStandards } }).populate('standard');
         res.json(students);
     } catch (error) {
         res.status(500).json({ message: error.message });
