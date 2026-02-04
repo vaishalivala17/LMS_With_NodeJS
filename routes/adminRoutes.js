@@ -1,13 +1,9 @@
 const express = require('express');
 const { authenticate } = require('../middleware/auth');
 const { authorize } = require('../middleware/checkAuthority');
-const {registerAdmin} = require('../controllers/authController')
 const { registerTeacher, getStudents, updateStudent, deleteStudent, getTeachers, updateTeacher, deleteTeacher, addSubject, getSubjects, addStandard, getStandards } = require('../controllers/adminController');
 
 const router = express.Router();
-
-//Admin  register
-router.post('/register-admin', registerAdmin);
 
 // Admin registers teacher
 router.post('/register-teacher', authenticate, authorize(['admin']), registerTeacher);

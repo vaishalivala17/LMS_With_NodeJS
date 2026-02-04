@@ -26,16 +26,16 @@ const userSchema = new mongoose.Schema({
     // }],
     teaching: [
   {
-    subject: { type: mongoose.Schema.Types.ObjectId, ref: "Subject" },
-    standard: { type: mongoose.Schema.Types.ObjectId, ref: "Standard" }
+    subject: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }],
+    standard: [{ type: mongoose.Schema.Types.ObjectId, ref: "Standard" }]
   }
 ],
     standard: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Standard',
         required: function () {
-    return this.role === "student";
-  }
+            return this.role === "student";
+        }
     }
 }, { timestamps: true });
 
@@ -44,7 +44,6 @@ userSchema.pre('save', async function(next) {
     if (this.isModified('password')) {
         this.password = await bcrypt.hash(this.password, 10);
     }
-    next();
 });
 
 // Compare password

@@ -11,29 +11,18 @@ const login = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token, m, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
+        res.json({ token, message: 'Admin login successfully', user: { id: user._id, name: user.name, email: user.email, role: user.role } });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
 
-// Register Admin 
-const registerAdmin = async (req, res) => {
-    try {
-        const { name, email, password, subjects } = req.body;
-        const admin = new User({ name, email, password, role: 'Admin' });
-        await admin.save();
-        res.status(201).json({ message: 'Admin registered successfully', admin });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
 // Register teacher (admin only)
 const registerTeacher = async (req, res) => {
     try {
-        const { name, email, password, subjects } = req.body;
-        const teacher = new User({ name, email, password, role: 'teacher', subjects });
+        const { name, email, password, teaching } = req.body;
+        const teacher = new User({ name, email, password, role: 'teacher', teaching });
         await teacher.save();
         res.status(201).json({ message: 'Teacher registered successfully', teacher });
     } catch (error) {
@@ -55,7 +44,6 @@ const registerStudent = async (req, res) => {
 
 module.exports = {
     login,
-    registerAdmin,
     registerTeacher,
     registerStudent
 };

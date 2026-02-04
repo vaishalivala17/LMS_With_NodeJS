@@ -6,8 +6,8 @@ const Standard = require('../models/Standard');
 // Register teacher (admin)
 const registerTeacher = async (req, res) => {
     try {
-        const { name, email, password, subjects } = req.body;
-        const teacher = new User({ name, email, password, role: 'teacher', subjects });
+        const { name, email, password, teaching } = req.body;
+        const teacher = new User({ name, email, password, role: 'teacher', teaching });
         await teacher.save();
         res.status(201).json({ message: 'Teacher registered successfully', teacher });
     } catch (error) {
@@ -51,7 +51,7 @@ const deleteStudent = async (req, res) => {
 // Get all teachers (admin)
 const getTeachers = async (req, res) => {
     try {
-        const teachers = await User.find({ role: 'teacher' }).populate('subjects');
+        const teachers = await User.find({ role: 'teacher' }).populate('teaching.subject').populate('teaching.standard');
         res.json(teachers);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -61,8 +61,8 @@ const getTeachers = async (req, res) => {
 // Update teacher (admin)
 const updateTeacher = async (req, res) => {
     try {
-        const { name, email, subjects } = req.body;
-        const teacher = await User.findByIdAndUpdate(req.params.id, { name, email, subjects }, { new: true });
+        const { name, email, teaching } = req.body;
+        const teacher = await User.findByIdAndUpdate(req.params.id, { name, email, teaching }, { new: true });
         res.json(teacher);
     } catch (error) {
         res.status(500).json({ message: error.message });

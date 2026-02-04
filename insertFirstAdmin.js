@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const User = require('./models/User');
-const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const insertFirstAdmin = async () => {
@@ -8,14 +7,15 @@ const insertFirstAdmin = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         const adminExists = await User.findOne({ role: 'admin' });
         if (adminExists) {
-            console.log('Admin already exists');
+            adminExists.password = 'admin9764';
+            await adminExists.save();
+            console.log('Admin password updated');
             return;
         }
-        const hashedPassword = await bcrypt.hash('admin123', 10);
         const admin = new User({
             name: process.env.ADMIN_NAME,
             email: process.env.ADMIN_EMAIL,
-            password: hashedPassword
+            password: 'admin9764'
         });
         await admin.save();
         console.log('First admin inserted successfully');

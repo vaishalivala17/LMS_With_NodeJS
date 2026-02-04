@@ -10,6 +10,7 @@ const port = process.env.PORT || 3001 ;
 const server = express();
 
 // Middleware
+server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
 // Connect to MongoDB
