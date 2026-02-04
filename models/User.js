@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
         required: function () {
             return this.role === "student";
         }
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 
