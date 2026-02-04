@@ -1,0 +1,112 @@
+[{
+  "_id": {
+    "$oid": "698316394c44f8acd7695293"
+  },
+  "name": "Vaishai_Vala",
+  "email": "vaishalivala1703@gmail.com",
+  "password": "$2b$10$t9MyCuvlhLBcxW1QUZ2wMurvSG27DNJI6iiOgeJTdlGGZhEyihiA6",
+  "role": "admin",
+  "teaching": [],
+  "createdAt": {
+    "$date": "2026-02-04T09:49:45.627Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T10:28:49.846Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "698322b42c3eea6fb44051fb"
+  },
+  "name": "Hitarthi_Vala",
+  "email": "hitarthivala1811@gmail.com",
+  "password": "$2b$10$8yO8vgyu1WULu7Og0YspaO7jmCWR30vlCpVujRh4twWrfmhOq7FZS",
+  "role": "teacher",
+  "teaching": [
+    {
+      "subject": [
+        {
+          "$oid": "69832bc7c611b9c11c4789ef"
+        },
+        {
+          "$oid": "69832c1ac611b9c11c4789fb"
+        }
+      ],
+      "standard": [
+        {
+          "$oid": "6983270ec611b9c11c4789bc"
+        },
+        {
+          "$oid": "6983295dc611b9c11c4789e9"
+        }
+      ],
+      "_id": {
+        "$oid": "698339dde0271b5dba57eb20"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-02-04T10:43:00.515Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T12:21:49.673Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832f61c611b9c11c478a0a"
+  },
+  "name": "Muskan_Yadav",
+  "email": "muskanyadav@gmail.com",
+  "password": "$2b$10$rwUHlfj3ODWG1U4hqBUFSu8cMquqgykTRVu/Hus.R/mmAXO4NZcfq",
+  "role": "teacher",
+  "teaching": [],
+  "createdAt": {
+    "$date": "2026-02-04T11:37:05.681Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:37:05.681Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "698330ebc611b9c11c478a13"
+  },
+  "name": "Pragati_Ahir",
+  "email": "pragatiahir@gmail.com",
+  "password": "$2b$10$0NZVjF5IDEz9V6lEbJTfmuRXGUKxV.qmFRPQBtCAOf.1qFIdTGFAy",
+  "role": "teacher",
+  "teaching": [
+    {
+      "subject": [
+        {
+          "$oid": "69832bbac611b9c11c4789ec"
+        },
+        {
+          "$oid": "69832c14c611b9c11c4789f8"
+        }
+      ],
+      "standard": [
+        {
+          "$oid": "6983270ec611b9c11c4789bc"
+        },
+        {
+          "$oid": "6983295dc611b9c11c4789e9"
+        }
+      ],
+      "_id": {
+        "$oid": "69833984e0271b5dba57eb1b"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-02-04T11:43:39.678Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T12:20:20.413Z"
+  },
+  "__v": 0
+}]

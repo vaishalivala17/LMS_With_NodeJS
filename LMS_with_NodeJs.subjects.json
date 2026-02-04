@@ -1,0 +1,128 @@
+[{
+  "_id": {
+    "$oid": "69832bbac611b9c11c4789ec"
+  },
+  "name": "Gujarati",
+  "standard": {
+    "$oid": "6983270ec611b9c11c4789bc"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:21:30.276Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:21:30.276Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832bc7c611b9c11c4789ef"
+  },
+  "name": "English",
+  "standard": {
+    "$oid": "6983270ec611b9c11c4789bc"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:21:43.559Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:21:43.559Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832bd2c611b9c11c4789f2"
+  },
+  "name": "Hindi",
+  "standard": {
+    "$oid": "6983270ec611b9c11c4789bc"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:21:54.111Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:21:54.111Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832befc611b9c11c4789f5"
+  },
+  "name": "Maths",
+  "standard": {
+    "$oid": "6983270ec611b9c11c4789bc"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:22:23.264Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:22:23.264Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832c14c611b9c11c4789f8"
+  },
+  "name": "Gujarati",
+  "standard": {
+    "$oid": "6983295dc611b9c11c4789e9"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:23:00.147Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:23:00.147Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832c1ac611b9c11c4789fb"
+  },
+  "name": "English",
+  "standard": {
+    "$oid": "6983295dc611b9c11c4789e9"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:23:06.854Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:23:06.854Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832c20c611b9c11c4789fe"
+  },
+  "name": "Hindi",
+  "standard": {
+    "$oid": "6983295dc611b9c11c4789e9"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:23:12.431Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:23:12.431Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69832c26c611b9c11c478a01"
+  },
+  "name": "Maths",
+  "standard": {
+    "$oid": "6983295dc611b9c11c4789e9"
+  },
+  "createdAt": {
+    "$date": "2026-02-04T11:23:18.654Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-04T11:23:18.654Z"
+  },
+  "__v": 0
+}]
