@@ -1,26 +1,11 @@
 const User = require('../models/User');
 const Subject = require('../models/Subject');
 const Standard = require('../models/Standard');
-// const bcrypt = require('bcrypt');
-
-// Register teacher (admin)
-const registerTeacher = async (req, res) => {
-    try {
-        const { name, email, password, teaching } = req.body;
-        const teacher = new User({ name, email, password, role: 'teacher', teaching });
-        await teacher.save();
-        res.status(201).json({ message: 'Teacher registered successfully', teacher });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-
 
 // Get all students (admin)
 const getStudents = async (req, res) => {
     try {
-        const students = await User.find({ role: 'student' }).populate('standard');
+        const students = await User.find({ role: 'student', isDeleted: false }).populate('standard');
         res.json(students);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -41,7 +26,7 @@ const updateStudent = async (req, res) => {
 // Delete student (admin)
 const deleteStudent = async (req, res) => {
     try {
-        await User.findByIdAndDelete(req.params.id);
+        await User.findByIdAndUpdate(req.params.id, { isDeleted: true });
         res.json({ message: 'Student deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -51,7 +36,7 @@ const deleteStudent = async (req, res) => {
 // Get all teachers (admin)
 const getTeachers = async (req, res) => {
     try {
-        const teachers = await User.find({ role: 'teacher' }).populate('teaching.subject').populate('teaching.standard');
+        const teachers = await User.find({ role: 'teacher', isDeleted: false }).populate('teaching.subject').populate('teaching.standard');
         res.json(teachers);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -72,7 +57,7 @@ const updateTeacher = async (req, res) => {
 // Delete teacher (admin)
 const deleteTeacher = async (req, res) => {
     try {
-        await User.findByIdAndDelete(req.params.id);
+        await User.findByIdAndUpdate(req.params.id, { isDeleted: true });
         res.json({ message: 'Teacher deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -124,7 +109,6 @@ const getStandards = async (req, res) => {
 };
 
 module.exports = {
-    registerTeacher,
     getStudents,
     updateStudent,
     deleteStudent,
