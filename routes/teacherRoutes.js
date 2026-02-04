@@ -3,6 +3,7 @@ const { authenticate} = require('../middleware/auth');
 const { authorize } = require('../middleware/checkAuthority');
 const { registerStudent, getStudents, updateStudent, deleteStudent } = require('../controllers/teacherController');
 const { getProfile } = require('../controllers/studentController');
+const { getAttendance, markAttendance } = require('../controllers/attendanceController');
 
 const router = express.Router();
 
@@ -20,5 +21,11 @@ router.delete('/students/:id', authenticate, authorize(['teacher']), deleteStude
 
 // Get own profile (teacher)
 router.get('/profile', authenticate, authorize(['teacher']), getProfile);
+
+// Mark attendance for students (teacher)
+router.post('/attendance', authenticate, authorize(['teacher']), markAttendance);
+
+// Get attendance for students (teacher)
+router.get('/attendance', authenticate, authorize(['teacher']), getAttendance);
 
 module.exports = router;
