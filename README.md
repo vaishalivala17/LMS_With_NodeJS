@@ -64,12 +64,12 @@ The main purpose of this project is to understand:
 ---
 
 ## Configure Environment Variables
-PORT=3000
-MONGO_URI=your_mongodb_connection_string
-ADMIN_NAME=your_name
-ADMIN_EMAIL=your_email
-ADMIN_PASSWORD=your_app_password
-SESSION_SECRET=your_secret_key
+ - PORT=3000
+ - MONGO_URI=your_mongodb_connection_string
+ - ADMIN_NAME=your_name
+ - ADMIN_EMAIL=your_email
+ - ADMIN_PASSWORD=your_app_password
+ - SESSION_SECRET=your_secret_key
 
 ---
 
