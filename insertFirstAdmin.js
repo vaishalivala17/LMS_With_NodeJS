@@ -7,7 +7,7 @@ const insertFirstAdmin = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         const adminExists = await User.findOne({ role: 'admin' });
         if (adminExists) {
-            adminExists.password = 'admin9764';
+            adminExists.password = process.env.ADMIN_PASSWORD ;
             await adminExists.save();
             console.log('Admin password updated');
             return;
@@ -15,7 +15,7 @@ const insertFirstAdmin = async () => {
         const admin = new User({
             name: process.env.ADMIN_NAME,
             email: process.env.ADMIN_EMAIL,
-            password: 'admin9764'
+            password: process.env.ADMIN_PASSWORD
         });
         await admin.save();
         console.log('First admin inserted successfully');
