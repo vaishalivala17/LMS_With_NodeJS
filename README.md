@@ -1,4 +1,4 @@
-# LMS_With_NodeJs
+# LMS_With_NodeJs-API
 
 ## Project Title
 Learning Management System (LMS) using Node.js
